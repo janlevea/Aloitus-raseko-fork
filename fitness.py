@@ -1,6 +1,9 @@
 # SOVELLUS PAINOINDEKSIN JA KEHON RASVAPROSENTIN LASKEMISEEN
 # ==========================================================
 
+# Kirjastot ja moduulit
+import math
+
 # Määritellään funktio painoindeksin laskentaan
 def laske_bmi(paino, pituus):
     """Laskee painoindeksin (BMI)
@@ -50,6 +53,44 @@ def lapsen_rasvaprosentti(bmi, ika, sukupuoli):
     rasvaprosentti = round(rasvaprosentti, 1)
     return rasvaprosentti
 
+def usa_rasvaprosentti_mies(pituus, vyotaron_ymparys, kaulan_ymparys):
+    """Laskee miehen rasvaprosentin USA:n armeijan kaavalla
+
+    Args:
+        pituus (float): pituus (cm)
+        vyotaron_ymparys (float): vyötärön ympärysmitta (cm)
+        kaulan_ymparys (float): kaulan ympärysmitta (cm)
+
+    Returns:
+        float: rasvaprosentti
+    """
+    # Sentit tuumiksi
+    vyotaron_ymparys = vyotaron_ymparys / 2.54
+    kaulan_ymparys = kaulan_ymparys / 2.54
+
+    rasvaprosentti = 86.010 * math.log10(vyotaron_ymparys - kaulan_ymparys) - 70.041 * math.log10(pituus) + 36.76
+    return rasvaprosentti
+
+
+def usa_rasvaprosentti_nainen(pituus, vyotaron_ymparys, kaulan_ymparys, lantion_ymparys):
+    """Laskee naisen rasvaprosentin USA:n armeijan kaavalla
+
+    Args:
+        pituus (float): pituus (cm)
+        vyotaron_ymparys (float): vyötärön ympärysmitta (cm)
+        kaulan_ymparys (float): kaulan ympärysmitta (cm)
+        lantion_ymparys (float): lantion ympärysmitta (cm)
+
+    Returns:
+        float: rasvaprosentti
+    """
+    # Sentit tuumiksi
+    vyotaron_ymparys = vyotaron_ymparys / 2.54
+    kaulan_ymparys = kaulan_ymparys / 2.54
+    lantion_ymparys = lantion_ymparys / 2.54
+
+    rasvaprosentti = 163.205 * math.log10(vyotaron_ymparys + lantion_ymparys - kaulan_ymparys) - 97.684 * math.log10(pituus) - 78.387
+    return rasvaprosentti
 
 # Suoritetaan seuraavat rivit vain, jos tämä tiedosto on pääohjelma
 # Mahdollistaa funktioiden lataamisen toisiin ohjelmiin
@@ -82,3 +123,21 @@ if __name__ == "__main__":
 
     print('Painoindeksisi on', oma_bmi,
           'ja kehon rasvaprosentti on', oma_rasvaprosentti)
+
+    print("Haluatko laskea myös USA:n puolustusvoimien kehon rasvaprosentin?")
+    print("Tähän tarvitaan lisätietoja. (vyötärön-, kaulan- ja naisilla myös lantion-ympärys)")
+    lasketaanko_usa = input("Syötä k jos haluat. Muussa tapauksessa enter.").upper()
+    if lasketaanko_usa == "K":
+        vyotaron_ymparys = float(input("Mikä on vyötärösi ympärys (cm): "))
+        kaulan_ymparys = float(input("Mikä on kaulasi ympärys (cm): "))
+
+        if sukupuoli == 0: # Nainen
+            lantion_ymparys = float(input("Mikä on lantiosi ympärys (cm): "))
+            oma_rasvaprosentti_usa = usa_rasvaprosentti_nainen(pituus, vyotaron_ymparys, kaulan_ymparys, lantion_ymparys)
+        elif sukupuoli == 1: # Mies
+            oma_rasvaprosentti_usa = usa_rasvaprosentti_mies(pituus, vyotaron_ymparys, kaulan_ymparys)
+
+        print("USA rasvaprosenttisi on:", oma_rasvaprosentti_usa)
+        print("Kiitos!")
+    else:
+        print("USA rasvaprosenttia ei laskettu. Kiitos!")
