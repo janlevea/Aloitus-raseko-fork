@@ -27,3 +27,19 @@ def test_lapsen_rasvaprosentti():
 
     # Tytöt
     assert fitness.lapsen_rasvaprosentti(24.4, 14, 0) == 28.4
+
+
+def test_usa_rasvaprosentti_mies():
+    assert fitness.usa_rasvaprosentti_mies(182, 100, 40) == 24.9
+    assert fitness.usa_rasvaprosentti_mies(175, 90, 40) == 19.3
+    assert fitness.usa_rasvaprosentti_mies(170, 80, 40) == 11.9
+    assert fitness.usa_rasvaprosentti_mies(181, 105, 38) == 29.2
+    assert fitness.usa_rasvaprosentti_mies(171, 91, 38) == 22.2
+
+
+def test_usa_rasvaprosentti_nainen():
+    assert fitness.usa_rasvaprosentti_nainen(170, 70, 37, 90) == 18.3
+    assert fitness.usa_rasvaprosentti_nainen(180, 100, 40, 80) == 25.0
+    assert fitness.usa_rasvaprosentti_nainen(175, 85, 39, 85) == 21.5
+    assert fitness.usa_rasvaprosentti_nainen(168, 70, 38, 80) == 12.2
+    assert fitness.usa_rasvaprosentti_nainen(182, 98, 42, 90) == 27.5
