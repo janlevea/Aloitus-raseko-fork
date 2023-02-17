@@ -53,7 +53,7 @@ class JunioriKuntoilija(Kuntoilija):
 
 if __name__ == "__main__":
 
-    # Luodaan oli luokasta Kuntoilija
+    # Luodaan olio luokasta Kuntoilija
     kuntoilija = Kuntoilija('Kalle Kuntoilija', 171, 65, 40, 1)
     print(kuntoilija.nimi, 'painaa', kuntoilija.paino, 'kg')
     # print('painoindeksi on ', kuntoilija.painoindeksi())
