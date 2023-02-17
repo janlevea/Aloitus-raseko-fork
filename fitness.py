@@ -129,7 +129,7 @@ if __name__ == "__main__":
 
     print("Haluatko laskea myös USA:n puolustusvoimien kehon rasvaprosentin?")
     print("Tähän tarvitaan lisätietoja. (vyötärön-, kaulan- ja naisilla myös lantion-ympärys)")
-    lasketaanko_usa = input("Syötä k jos haluat. Muussa tapauksessa enter.").upper()
+    lasketaanko_usa = input("Syötä k jos haluat. Muussa tapauksessa enter: ").upper()
     if lasketaanko_usa == "K":
         vyotaron_ymparys = float(input("Mikä on vyötärösi ympärys (cm): "))
         kaulan_ymparys = float(input("Mikä on kaulasi ympärys (cm): "))
@@ -141,6 +141,5 @@ if __name__ == "__main__":
             oma_rasvaprosentti_usa = usa_rasvaprosentti_mies(pituus, vyotaron_ymparys, kaulan_ymparys)
 
         print("USA rasvaprosenttisi on:", oma_rasvaprosentti_usa)
-        print("Kiitos!")
     else:
         print("USA rasvaprosenttia ei laskettu. Kiitos!")
