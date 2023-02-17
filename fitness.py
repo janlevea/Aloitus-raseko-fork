@@ -65,10 +65,12 @@ def usa_rasvaprosentti_mies(pituus, vyotaron_ymparys, kaulan_ymparys):
         float: rasvaprosentti
     """
     # Sentit tuumiksi
+    pituus = pituus / 2.54
     vyotaron_ymparys = vyotaron_ymparys / 2.54
     kaulan_ymparys = kaulan_ymparys / 2.54
 
     rasvaprosentti = 86.010 * math.log10(vyotaron_ymparys - kaulan_ymparys) - 70.041 * math.log10(pituus) + 36.76
+    rasvaprosentti = round(rasvaprosentti, 1)
     return rasvaprosentti
 
 
@@ -85,11 +87,13 @@ def usa_rasvaprosentti_nainen(pituus, vyotaron_ymparys, kaulan_ymparys, lantion_
         float: rasvaprosentti
     """
     # Sentit tuumiksi
+    pituus = pituus / 2.54
     vyotaron_ymparys = vyotaron_ymparys / 2.54
     kaulan_ymparys = kaulan_ymparys / 2.54
     lantion_ymparys = lantion_ymparys / 2.54
 
     rasvaprosentti = 163.205 * math.log10(vyotaron_ymparys + lantion_ymparys - kaulan_ymparys) - 97.684 * math.log10(pituus) - 78.387
+    rasvaprosentti = round(rasvaprosentti, 1)
     return rasvaprosentti
 
 # Suoritetaan seuraavat rivit vain, jos tämä tiedosto on pääohjelma
@@ -97,7 +101,6 @@ def usa_rasvaprosentti_nainen(pituus, vyotaron_ymparys, kaulan_ymparys, lantion_
 # Kun koodi ladataan toiseen tiedostoon,
 # if __name__ == "__main__":n alapuolella olevaa koodia ei suoriteta
 if __name__ == "__main__":
-
     # Kysytään käyttäjältä tiedot
     pituus_teksti = input('Kuinka pitkä olet (cm): ')
     paino_teksti = input('Kuinka paljon painat (kg): ')
