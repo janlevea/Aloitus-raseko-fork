@@ -1,3 +1,7 @@
+# Omat
+# Kuntoilijoista tallennetut tiedot
+*.json 
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
