@@ -20,12 +20,18 @@ def test_ask_user_float3(monkeypatch):
     question = questions.Question('Anna liukuluku: ')
     assert question.ask_user_float(False) == (0, 'Error', 1, "could not convert string to float: '1.5v'")
 
-# Test if conversion to integer works as expected
+# Test new static ask_user_int
 def test_ask_user_int(monkeypatch):
     user_input = '100'
     monkeypatch.setattr('builtins.input', lambda _: user_input)
-    question = questions.Question('Anna kokonaisluku: ')
-    assert question.ask_user_int(False) == (100, 'OK', 0, "Conversion successful")
+    assert questions.Question.ask_user_int('Anna kokonaisluku: ', False) == (100, 'OK', 0, "Conversion successful")
+
+# # Test if conversion to integer works as expected
+# def test_ask_user_int(monkeypatch):
+#     user_input = '100'
+#     monkeypatch.setattr('builtins.input', lambda _: user_input)
+#     question = questions.Question('Anna kokonaisluku: ')
+#     assert question.ask_user_int(False) == (100, 'OK', 0, "Conversion successful")
 
 # Test if conversion to boolean works as expected
 def test_ask_user_bool(monkeypatch):
