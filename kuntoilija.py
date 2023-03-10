@@ -30,6 +30,8 @@ class Kuntoilija:
         self.kaulan_ymparys = kaulan_ymparys
         self.lantion_ymparys = lantion_ymparys
 
+        self.usa_rasvaprosentti = 0.0
+
     # Metodi rasvaprosentin laskemiseen (yleinen / aikuinen)
     def rasvaprosentti(self):
         self.rasvaprosentti = fitness.aikuisen_rasvaprosentti(
@@ -53,6 +55,7 @@ class Kuntoilija:
                 self.usa_rasvaprosentti = fitness.usa_rasvaprosentti_nainen(
                     self.pituus, self.vyotaron_ymparys, self.kaulan_ymparys, self.lantion_ymparys
                 )
+        return self.usa_rasvaprosentti
 
 # JunioriKuntoilija-luokka Kuntoilija-luokan aliluokka (subclass)
 
