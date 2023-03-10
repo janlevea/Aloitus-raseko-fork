@@ -24,7 +24,7 @@ class Question:
         if loop == True:
             while True:
                 answer_txt = input(self.question)
-
+                answer_txt = answer_txt.replace(',', '.')
                 # Let's try to convert input to numeric
                 try:
                     answer = float(answer_txt)
@@ -37,7 +37,7 @@ class Question:
                     result = (0, 'Error', 1, str(e))
         else:
             answer_txt = input(self.question)
-
+            answer_txt = answer_txt.replace(',', '.')
             # Let's try to convert input to numeric
             try:
                 answer = float(answer_txt)
@@ -183,6 +183,12 @@ class Question:
         return result
 
 if __name__ == "__main__":
+    # Test:
+    # question = Question("Yes or no? (Y/N): ")
+    # answer_and_error = question.ask_user_bool2('Y', 'N', False)
+    # print(answer_and_error)
+    # response = answer_and_error[0]
+
     question = Question("Enter name: ")
     answer_and_error = question.ask_user_string()
     name = answer_and_error[0]
