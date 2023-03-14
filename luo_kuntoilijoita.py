@@ -1,13 +1,11 @@
-# ASKS BASIC INFORMATION ABOUT THE ATHLETE AND CREATES ATHLETE OBJECTS
-# --------------------------------------------------------------------
+# Asks basic info about the athlete and creates athlete objects
+# ---------
 
 # Libraries and modules
 import kuntoilija
-
 import json # For saving athlete information
 
-# Functions
-
+# Functions...
 # Ask a question and convert to numeric
 def ask_user(question, float_or_int=0):
     """Ask a question from user
@@ -19,30 +17,32 @@ def ask_user(question, float_or_int=0):
     Returns:
         result (float/int): converted answer
     """
+    while True:
+        answer_txt = input(question)
+        # result = (0, 'Error', 1, 'Temporary error message')
 
-    # TODO: Fix bug. If input invalid, and asked again returns 0 on answer[0].
-    answer_txt = input(question)
-    # result = (0, 'Error', 1, 'Temporary error message')
+        # Try to convert input to numeric
+        try:
+            if float_or_int == 0:
+                answer_txt = answer_txt.replace(',', '.')
+                answer = float(answer_txt)
+                result = (answer, 'OK', 0, 'Conversion successful')
+                break
+            elif float_or_int == 1:
+                answer = int(answer_txt)
+                result = (answer, 'OK', 0, 'Conversion successful')
+                break
+            else:
+                print('ERROR: argument: float_or_int something else than 0/1.')
+                result = (0, 'Error', 1, 'Argument error')
+                raise Exception('Argument error')
 
-    # Try to convert input to numeric
-    try:
-        if float_or_int == 0:
-            answer = float(answer_txt)
-            result = (answer, 'OK', 0, 'Conversion successful')
-        elif float_or_int == 1:
-            answer = int(answer_txt)
-            result = (answer, 'OK', 0, 'Conversion successful')
-        else:
-            print('ERROR: argument: float_or_int something else than 0/1.')
-            result = (0, 'Error', 1, 'Argument error')
-            raise Exception('Argument error')
-
-    # If an error occurs tell the user to check
-    except Exception as e:
-        print('Virhe syötetyssä arvossa, älä käytä yksiköitä.')
-        print('Syötä vain numeroita, esim. 100')
-        print(e)
-        result = (0, 'Error', 1, str(e))
+        # If an error occurs tell the user to check
+        except Exception as e:
+            print('Virhe syötetyssä arvossa, älä käytä yksiköitä.')
+            print('Vain numerot ja mahd. desimaalimerkki sallittuja.')
+            print(e)
+            result = (0, 'Error', 1, str(e))
 
     return result
 
@@ -86,10 +86,12 @@ athlete = kuntoilija.Kuntoilija(
     nimi, pituus, paino, ika, 
     sukupuoli, vyotaron_ymparys, 
     kaulan_ymparys, lantion_ymparys)
-        
-print(athlete.nimi, 'painoindeksisi on', athlete.bmi)
 
-print('Viimeisen kysymyksen virheilmoitus:', answer[1], 'koodi', answer[2], 'viesti(eng)', answer[3])
+athlete.laske_usa_rasvaprosentti()
+        
+print(f"{athlete.nimi} painoindeksisi on {athlete.bmi}.")
+if athlete.usa_rasvaprosentti > 0:
+    print(f"USA rasvaprosenttisi = {athlete.usa_rasvaprosentti} %.")
 
 saveinfo = input('Tallennetaanko tiedot? (k/e) ')
 if saveinfo.lower() == 'k':
@@ -100,3 +102,5 @@ if saveinfo.lower() == 'k':
     print('Tiedot tallennettu tiedostoon', filename)
 else:
     print('Tietoja ei tallennettu.')
+
+print('Viimeisen kysymyksen virheilmoitus:', answer[1], 'koodi', answer[2], 'viesti(eng)', answer[3])
