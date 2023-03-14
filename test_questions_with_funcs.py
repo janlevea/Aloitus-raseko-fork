@@ -1,4 +1,4 @@
-# questions.py - tests
+# questions_with_funcs.py - tests
 import questions_with_funcs as questions
 
 # Tests without raised exceptions:
