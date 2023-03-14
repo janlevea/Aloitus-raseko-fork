@@ -69,4 +69,28 @@ def test_ask_user_gender2(monkeypatch):
     question = questions.ask_user_gender("Anna sukupuoli (0=Nainen/1=Mies): ")
     assert question == 0
 
+def test_ask_user_gender3(monkeypatch):
+    user_input = "1"
+    monkeypatch.setattr('builtins.input', lambda _: user_input)
+    question = questions.ask_user_gender("Anna sukupuoli (0=Nainen/1=Mies): ")
+    assert question == 1
+
+def test_ask_user_gender4(monkeypatch):
+    user_input = "0"
+    monkeypatch.setattr('builtins.input', lambda _: user_input)
+    question = questions.ask_user_gender("Anna sukupuoli (0=Nainen/1=Mies): ")
+    assert question == 0
+
+def test_ask_user_gender5(monkeypatch):
+    user_input = "man"
+    monkeypatch.setattr('builtins.input', lambda _: user_input)
+    question = questions.ask_user_gender("Anna sukupuoli (0=Nainen/1=Mies): ")
+    assert question == 1
+
+def test_ask_user_gender6(monkeypatch):
+    user_input = "woman"
+    monkeypatch.setattr('builtins.input', lambda _: user_input)
+    question = questions.ask_user_gender("Anna sukupuoli (0=Nainen/1=Mies): ")
+    assert question == 0
+
 # TODO: Testejä joissa nostetaan virheitä (onko mahdollista koska While: True looppi?)
