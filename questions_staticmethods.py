@@ -213,6 +213,22 @@ class Question:
         result = (answer_txt, 'OK', 0, 'Input ok')
         return result
 
+    # A method to ask a question and convert answer according to a dictionary
+    @staticmethod
+    def ask_user_dictionary(question, dictionary):
+        """Return a value based on dictionary
+
+        Args:
+            question (str): The question to be asked
+            dictionary (dict):
+
+        Returns:
+            _type_: _description_
+        """        
+        value = 0
+        result = (value, 'OK', 0, 'Conversion successful')
+        return result
+
 if __name__ == "__main__":
     # Test:
     # question = Question("Yes or no? (Y/N): ")
