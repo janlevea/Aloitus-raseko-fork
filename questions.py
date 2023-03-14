@@ -138,7 +138,7 @@ class Question:
                 result = (0, 'Error', 1, str(e))
         return result
 
-    def ask_user_bool2(self, true_value, false_value, loop):
+    def ask_user_bool_custom(self, true_value, false_value, loop):
         """Asks a question and converts the answer(true_value/false_value) to a boolean True/False
 
         Args:
@@ -206,7 +206,7 @@ class Question:
 if __name__ == "__main__":
     # Test:
     # question = Question("Yes or no? (Y/N): ")
-    # answer_and_error = question.ask_user_bool2('Y', 'N', False)
+    # answer_and_error = question.ask_user_bool_custom('Y', 'N', False)
     # print(answer_and_error)
     # response = answer_and_error[0]
 
