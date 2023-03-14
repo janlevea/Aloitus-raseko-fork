@@ -45,3 +45,5 @@ usa_fat_percentage = athlete.usa_rasvaprosentti()
 
 text_to_show = f"Suomalainen rasva-% on {fat_percentage} ja amerikkalainen on {usa_fat_percentage}."
 print(text_to_show)
+
+# TODO: Save user information to a file (json, tehty jo johonkin tiedostoon)
