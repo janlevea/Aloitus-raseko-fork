@@ -94,6 +94,35 @@ def ask_user_string(question):
     answer = input(question)
     return answer
 
+def ask_user_gender(question):
+    """Asks a question and converts the answer to gender as number (0=Female, 1=Male)
+
+    Args:
+        question (str): Question to ask (print on users screen)
+
+    Returns:
+        int: gender as int (0=Female/1=Male)
+    """
+
+    # Accepted inputs
+    male_inputs = [
+        "1", "mies", "man", "male", "m"
+    ]
+    female_inputs = [
+        "0", "nainen", "woman", "female", "f", "n"
+    ]
+
+    while True:
+        answer_txt = input(question)
+        if answer_txt in male_inputs:
+            gender = 1  # Male
+            return gender
+        elif answer_txt in female_inputs:
+            gender = 0  # Female
+            return gender
+        else:
+            print('Virhe syötteessä. Sukupuolta ei tunnistettu.')
+
 if __name__ == "__main__":
     name = ask_user_string("Enter name: ")
     height = ask_user_float("Enter height (cm): ")
