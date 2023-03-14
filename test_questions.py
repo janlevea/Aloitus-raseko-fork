@@ -24,7 +24,8 @@ def test_ask_user_float3(monkeypatch):
 def test_ask_user_int(monkeypatch):
     user_input = '100'
     monkeypatch.setattr('builtins.input', lambda _: user_input)
-    assert questions.Question.ask_user_int('Anna kokonaisluku: ', False) == (100, 'OK', 0, "Conversion successful")
+    question = questions.Question('Anna kokonaisluku: ')
+    assert question.ask_user_int(False) == (100, 'OK', 0, "Conversion successful")
 
 # # Test if conversion to integer works as expected
 # def test_ask_user_int(monkeypatch):
