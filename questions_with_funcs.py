@@ -99,6 +99,7 @@ if __name__ == "__main__":
     height = ask_user_float("Enter height (cm): ")
     weight = ask_user_float("Enter weight (kg): ")
     age = ask_user_int("Enter age: ")
+    # TODO: if answer "man" as string convert to 1 and "woman" to 0 (myös mies/nainen)
     gender = ask_user_int("Enter gender (1 = man, 0 = woman): ")
     waist = ask_user_float("Enter waist circumference (cm): ")
     neck = ask_user_float("Enter neck cicumference (cm): ")
