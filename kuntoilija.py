@@ -33,7 +33,7 @@ class Kuntoilija:
             self.bmi, self.ika, self.sukupuoli)
         return self.rasvaprosentti
 
-    def usa_rasvaprosentti(self):
+    def laske_usa_rasvaprosentti(self):
         if self.sukupuoli == 1:  # Mies
             if self.vyotaron_ymparys == 0.0 or self.kaulan_ymparys == 0.0:
                 print("USA:n armeijan rasvaprosenttikaava vaatii vyötärön ja kaulan ympärysmitat.")
