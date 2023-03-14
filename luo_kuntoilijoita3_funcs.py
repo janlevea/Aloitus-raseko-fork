@@ -1,42 +1,32 @@
-# TODO: Tee tämä tiedosto
-# Alla luo_kuntoilijoita2.py koodi
-
 # Get basic information about an athlete and create athlete objects
+# With functions instead of class-methods
 # -----
 
 # Libraries and modules
 import kuntoilija
-import questions
+import questions_with_funcs as questions
 import json # For saving athlete information
 
 
 # Enter information about an athlete
-name = input('Nimi: ')
-# Ask details about her/him
-question = questions.Question('Kuinka paljon painat? (kg): ')
-weight = question.ask_user_float(True)[0]
-question = questions.Question("Kuinka pitkä olet? (cm): ")
-height = question.ask_user_float(True)[0]
-question = questions.Question("Kuinka vanha olet? (v): ")
-age =  question.ask_user_int(True)[0]
+name = questions.ask_user_string('Nimi: ')
+weight = questions.ask_user_float('Kuinka paljon painat? (kg): ')
+height = questions.ask_user_float('Kuinka pitkä olet? (cm): ')
+age = questions.ask_user_int('Kuinka vanha olet? (v): ')
+gender = questions.ask_user_int('Oletko nainen vai mies? (0/1): ')
 
-question = questions.Question("Oletko nainen vai mies? (0/1): ") 
-gender = question.ask_user_int(True)[0]
 while True:
     if gender != 0 or gender != 1:
         print("Error in input, use 0/1.")
-        gender = question.ask_user_int(True)[0]
+        gender = questions.ask_user_int('Oletko nainen vai mies? (0/1): ')
     else:
         break
 
-question = questions.Question("Minkä kokoinen on kaulasi ympärys? (cm): ")
-neck = question.ask_user_float(True)[0]
-question = questions.Question("Minkä kokoinen on vyötärösi ympärys? (cm): ")
-waist = question.ask_user_float(True) [0]
+neck = questions.ask_user_float('Minkä kokoinen on kaulasi ympärys? (cm): ')
+waist = questions.ask_user_float('Minkä kokoinen on vyötärösi ympärys? (cm): ')
 
 if gender == 0:
-    question = questions.Question("Minkä kokoinen on lantiosi ympärys? (cm): ")
-    hips = question.ask_user_float(True)[0]
+    hips = questions.ask_user_float("Minkä kokoinen on lantiosi ympärys? (cm): ")
 else:
     hips = 0
 
