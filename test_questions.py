@@ -42,23 +42,23 @@ def test_ask_user_bool(monkeypatch):
     assert question.ask_user_bool(False) == (True, 'OK', 0, "Conversion successful")
 
 # Test if conversion to boolean works as expected in alternative method
-def test_ask_user_bool2(monkeypatch):
+def test_ask_user_bool_custom(monkeypatch):
     user_input = 'K'
     monkeypatch.setattr('builtins.input', lambda _: user_input)
     question = questions.Question('Anna kyllä/ei (K/E): ')
-    assert question.ask_user_bool2('K', 'E', False) == (True, 'OK', 0, "Conversion successful")
+    assert question.ask_user_bool_custom('K', 'E', False) == (True, 'OK', 0, "Conversion successful")
 
-def test_ask_user_bool2_2(monkeypatch):
+def test_ask_user_bool_custom_2(monkeypatch):
     user_input = 'E'
     monkeypatch.setattr('builtins.input', lambda _: user_input)
     question = questions.Question('Anna kyllä/ei (K/E): ')
-    assert question.ask_user_bool2('K', 'E', False) == (False, 'OK', 0, "Conversion successful")
+    assert question.ask_user_bool_custom('K', 'E', False) == (False, 'OK', 0, "Conversion successful")
 
-def test_ask_user_bool2_3(monkeypatch):
+def test_ask_user_bool_custom_3(monkeypatch):
     user_input = 'y'
     monkeypatch.setattr('builtins.input', lambda _: user_input)
     question = questions.Question('Anna kyllä/ei (K/E): ')
-    assert question.ask_user_bool2('K', 'E', False) == ('N/A', 'Error', 1, 'Unable to convert input to bool')
+    assert question.ask_user_bool_custom('K', 'E', False) == ('N/A', 'Error', 1, 'Unable to convert input to bool')
 
 """
 def test_kysy_nimi(monkeypatch): # argumenttina monkeypatch-moduli (venv - pytest - monkeypatch.py)
