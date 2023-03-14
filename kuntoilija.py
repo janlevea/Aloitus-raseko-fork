@@ -1,21 +1,16 @@
-# KUNTOILIJAN TIEDOT OLIO-OHJELMOINTINA
-# =====================================
+# Kuntoilijan tiedot oliona
+# -----------
 
-# KIRJASTOT JA MODULIT (LIBRARIES AND MODULES)
-# --------------------------------------------
-
+# Kirjastot ja modulit (libraries and modules)
 import fitness
 
-# LUOKKAMÄÄRITYKSET (CLASS DEFINITIONS)
-# -------------------------------------
-
-# Kuntoilija-luokka Yliluokka JunioriKuntoilijalle (super class)
-
-
+# Luokkamääritykset (class definitions)
+# Kuntoilija-luokka - Yliluokka JunioriKuntoilijalle (super class)
 class Kuntoilija:
     """Luokka kuntoilijan tietoja varten"""
 
     # Olionmuodostin eli konstruktori, self -> tuleva olio
+    # Jos vyötärön, kaulan tai lantion ympärysmittoja ei anneta, niin ne asetetaan oletusarvoiksi 0.0
     def __init__(self, nimi, pituus, paino, ika, sukupuoli, vyotaron_ymparys=0.0, kaulan_ymparys=0.0, lantion_ymparys=0.0):
 
         # Määritellään tulevan olion ominaisuudet (property) eli luokan kentät (field)
@@ -39,7 +34,7 @@ class Kuntoilija:
         return self.rasvaprosentti
 
     def usa_rasvaprosentti(self):
-        if self.sukupuoli == 1:
+        if self.sukupuoli == 1:  # Mies
             if self.vyotaron_ymparys == 0.0 or self.kaulan_ymparys == 0.0:
                 print("USA:n armeijan rasvaprosenttikaava vaatii vyötärön ja kaulan ympärysmitat.")
                 self.usa_rasvaprosentti = 0.0
@@ -47,7 +42,7 @@ class Kuntoilija:
                 self.usa_rasvaprosentti = fitness.usa_rasvaprosentti_mies(
                     self.pituus, self.vyotaron_ymparys, self.kaulan_ymparys
                 )
-        elif self.sukupuoli == 0:
+        elif self.sukupuoli == 0:  # Nainen
             if self.vyotaron_ymparys == 0.0 or self.kaulan_ymparys == 0.0 or self.lantion_ymparys == 0.0:
                 print("USA:n armeijan rasvaprosenttikaava vaatii vyötärön, kaulan ja lantion ympärysmitat.")
                 self.usa_rasvaprosentti = 0.0
@@ -58,16 +53,15 @@ class Kuntoilija:
         return self.usa_rasvaprosentti
 
 # JunioriKuntoilija-luokka Kuntoilija-luokan aliluokka (subclass)
-
-
 class JunioriKuntoilija(Kuntoilija):
     """Luokka nuoren kuntoilijan tiedoille"""
 
     # Konstruktori
     def __init__(self, nimi, pituus, paino, ika, sukupuoli):
 
-        # Määritellään periytyminen, mitä ominaisuuksia perii
+        # Määritellään periytyminen, mitä ominaisuuksia perii yliluokasta (Kuntoilija)
         super().__init__(nimi, pituus, paino, ika, sukupuoli)
+        self.bmi = fitness.laske_bmi(self.paino, self.pituus)
 
     # Metodi rasvaprosentin laskemiseen (ylikirjoitettu lapsen metodilla)
     def rasvaprosentti(self):
@@ -75,16 +69,15 @@ class JunioriKuntoilija(Kuntoilija):
             self.bmi, self.ika, self.sukupuoli)
         return self.rasvaprosentti
 
-
+# Testaa Kuntoilija ja JunioriKuntoilija-luokat
 if __name__ == "__main__":
-
     # Luodaan olio luokasta Kuntoilija
     kuntoilija = Kuntoilija('Kalle Kuntoilija', 171, 65, 40, 1)
     print(kuntoilija.nimi, 'painaa', kuntoilija.paino, 'kg')
-    # print('painoindeksi on ', kuntoilija.painoindeksi())
-    print('rasvaprosentti on', kuntoilija.rasvaprosentti())
-
+    print('Painoindeksi on ', kuntoilija.bmi)
+    print('Rasvaprosentti on', kuntoilija.rasvaprosentti())
+    # Luodaan olio luokasta JunioriKuntoilija
     juniorikuntoilija = JunioriKuntoilija('Aku', 171, 65, 16, 1)
     print(juniorikuntoilija.nimi, 'painaa', juniorikuntoilija.paino, 'kg')
-    # print('painoindeksi on ', kuntoilija.painoindeksi())
-    print('rasvaprosentti on', juniorikuntoilija.rasvaprosentti())
+    print('Painoindeksi on ', juniorikuntoilija.bmi)
+    print('Rasvaprosentti on', juniorikuntoilija.rasvaprosentti())
