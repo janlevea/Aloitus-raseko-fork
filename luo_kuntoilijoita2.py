@@ -8,8 +8,7 @@ import json # For saving athlete information
 
 
 # Enter information about an athlete
-question = questions.Question('Nimi: ')
-name = question.ask_user_string()[0]
+name = input('Nimi: ')
 # Ask details about her/him
 question = questions.Question('Kuinka paljon painat? (kg): ')
 weight = question.ask_user_float(True)[0]
