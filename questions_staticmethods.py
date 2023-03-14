@@ -144,7 +144,7 @@ class Question:
         return result
 
     @staticmethod
-    def ask_user_bool2(question, true_value, false_value, loop):
+    def ask_user_bool_custom(question, true_value, false_value, loop):
         """Asks a question and converts the answer(true_value/false_value) to a boolean True/False
 
         Args:
@@ -215,57 +215,136 @@ class Question:
 
     # A method to ask a question and convert answer according to a dictionary
     @staticmethod
-    def ask_user_dictionary(question, dictionary):
+    def ask_user_dictionary(question, dictionary, loop):
         """Return a value based on dictionary
 
         Args:
             question (str): The question to be asked
-            dictionary (dict):
+            dictionary (dict): Possible answers in key-value-pairs
+            loop (bool): If True asks the question until able to convert it
 
         Returns:
-            _type_: _description_
-        """        
-        value = 0
-        result = (value, 'OK', 0, 'Conversion successful')
+            tuple: answer in correct type, error message, error code, detailed error
+        """
+        if loop == True:
+            while True:
+                answer_txt = input(question)
+                try:
+                    value = dictionary[answer_txt]
+                    result = (value, 'OK', 0, 'Conversion successful')
+                    break
+                except Exception as e:
+                    result = ('N/A', 'Error', 1, str(e))
+        else:
+            answer_txt = input(question)
+            try:
+                value = dictionary[answer_txt]
+                result = (value, 'OK', 0, 'Conversion successful')
+            except Exception as e:
+                result = ('N/A', 'Error', 1, str(e))
+        
         return result
+
+    @staticmethod
+    def ask_user_gender(question, loop):
+        """Asks a question and converts the answer to gender as number (0=Female, 1=Male)
+
+        Args:
+            question (str): Question to ask (print on users screen)
+            loop (bool): If True asks the question until able to convert it
+
+        Returns:
+            tuple: answer in correct type, error message, error code, detailed error
+        """
+
+        # Accepted inputs
+        male_inputs = (
+            "1", "mies", "poika", "man", "male", "m"
+        )
+        female_inputs = (
+            "0", "nainen", "tyttö", "woman", "female", "f", "n"
+        )
+
+        if loop == True:
+            while True:
+                answer_txt = input(question)
+                answer_txt = answer_txt.lower()
+                if answer_txt in male_inputs:
+                    gender = 1  # Male
+                    result = (gender, 'OK', 0, 'Conversion successful')
+                    return result
+                elif answer_txt in female_inputs:
+                    gender = 0  # Female
+                    result = (gender, 'OK', 0, 'Conversion successful')
+                    return result
+                else:
+                    result = ('Unknown gender', 'Error', 1, 'Unable to convert input to gender')
+                    result = (gender, 'OK', 0, 'Conversion successful')
+                    return result
+        else:
+            answer_txt = input(question)
+            answer_txt = answer_txt.lower()
+            if answer_txt in male_inputs:
+                gender = 1  # Male
+                result = (gender, 'OK', 0, 'Conversion successful')
+                return result
+            elif answer_txt in female_inputs:
+                gender = 0  # Female
+                result = (gender, 'OK', 0, 'Conversion successful')
+                return result
+            else:
+                print('Virhe syötteessä. Sukupuolta ei tunnistettu.')
+                result = ('Unknown gender', 'Error', 1, 'Unable to convert input to gender')
+                return result
 
 if __name__ == "__main__":
     # Test:
     # question = Question("Yes or no? (Y/N): ")
-    # answer_and_error = question.ask_user_bool2('Y', 'N', False)
+    # answer_and_error = question.ask_user_bool_custom('Y', 'N', False)
     # print(answer_and_error)
     # response = answer_and_error[0]
 
-    question = Question("Enter name: ")
-    answer_and_error = question.ask_user_string()
+    answer_and_error = Question.ask_user_string("Enter name: ")
     name = answer_and_error[0]
 
-    question = Question("Enter height (cm): ")
-    answer_and_error = question.ask_user_float(True)
+    answer_and_error = Question.ask_user_float("Enter height (cm): ", True)
     height = answer_and_error[0]
 
-    question = Question("Enter weight (kg): ")
-    answer_and_error = question.ask_user_float(True)
+    answer_and_error = Question.ask_user_float("Enter weight (kg): ", True)
     weight = answer_and_error[0]
 
-    question = Question("Enter age: ")
-    answer_and_error = question.ask_user_int(True)
+    answer_and_error = Question.ask_user_int("Enter age: ", True)
     age = answer_and_error[0]
 
-    question = Question("Enter gender (1 = man, 0 = woman): ")
-    answer_and_error = question.ask_user_int(True)
+    answer_and_error = Question.ask_user_int("Enter gender (1 = man, 0 = woman): ", True)
     gender = answer_and_error[0]
 
-    question = Question("Enter waist circumference (cm): ")
-    answer_and_error = question.ask_user_float(True)
+    gender_dictionary = {   
+        '0': 0,
+        'tyttö': 0,
+        'nainen': 0,
+        "woman": 0,
+        "female": 0,
+        "f": 0,
+        "n": 0,
+
+        '1': 1,
+        'mies': 1,
+        'poika': 1,
+        'man': 1,
+        'male': 1,
+        'm': 1,
+    }
+    answer_and_error = Question.ask_user_dictionary("Sukupuoli: ", gender_dictionary, True)
+    print(answer_and_error)
+
+    answer_and_error = Question.ask_user_float("Enter waist circumference (cm): ", True)
     waist_circumference = answer_and_error[0]
 
-    question = Question("Enter neck cicumference (cm): ")
-    answer_and_error = question.ask_user_float(True)
+    answer_and_error = Question.ask_user_float("Enter neck cicumference (cm): ", True)
     neck_circumference = answer_and_error[0]
 
-    question = Question("Enter hip cicumference (cm): ")
-    answer_and_error = question.ask_user_float(True)
+    answer_and_error = Question.ask_user_float("Enter hip cicumference (cm): ", True)
     hip_circumference = answer_and_error[0]
 
     print(name, height, weight, age, gender, waist_circumference,
