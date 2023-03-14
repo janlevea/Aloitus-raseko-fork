@@ -1,5 +1,5 @@
-# SOVELLUS PAINOINDEKSIN JA KEHON RASVAPROSENTIN LASKEMISEEN
-# ==========================================================
+# Sovellus painoindeksin ja kehon rasvaprosentin laskemiseen
+# -----------
 
 # Kirjastot ja moduulit
 import math
@@ -103,15 +103,33 @@ def usa_rasvaprosentti_nainen(pituus, vyotaron_ymparys, kaulan_ymparys, lantion_
 if __name__ == "__main__":
     # Kysytään käyttäjältä tiedot
     pituus_teksti = input('Kuinka pitkä olet (cm): ')
-    paino_teksti = input('Kuinka paljon painat (kg): ')
-    ika_teksti = input('Kuinka vanha olet: ')
-    sukupuoli_teksti = input('Sukupuoli mies, vastaa 1, nainen vastaa 0: ')
+    try:
+        pituus_teksti = pituus_teksti.replace(',', '.')
+        pituus = float(pituus_teksti)
+    except Exception:
+        print("Virheellinen syöte! Syötä vain numeroita/desimaalimerkki.")
 
-    # Muutetaan vastaukset liukuluvuiksi
-    pituus = float(pituus_teksti)
-    paino = float(paino_teksti)
-    ika = float(ika_teksti)
-    sukupuoli = float(sukupuoli_teksti)
+    paino_teksti = input('Kuinka paljon painat (kg): ')
+    try:
+        paino_teksti = paino_teksti.replace(',', '.')
+        paino = float(paino_teksti)
+    except Exception:
+        print("Virheellinen syöte! Syötä vain numeroita/desimaalimerkki.")
+
+    ika_teksti = input('Kuinka vanha olet: ')
+    try:
+        ika = int(ika_teksti)
+    except Exception:
+        print("Virheellinen syöte! Syötä vain numeroita.")
+
+    sukupuoli_teksti = input('Sukupuoli mies, vastaa 1, nainen vastaa 0: ')
+    if sukupuoli_teksti == "mies" or "man" or "male" or "1":
+        sukupuoli = 1
+    elif sukupuoli_teksti == "nainen" or "woman" or "female" or "0":
+        sukupuoli = 0
+    else:
+        print("Sukupuolta ei tunnistettu.")
+
 
     # Lasketaan painoindeksi funktiolla laske_bmi
     oma_bmi = laske_bmi(paino, pituus)
@@ -119,27 +137,45 @@ if __name__ == "__main__":
     # Yli 18 vuotiailla käytetään aikuisen kaavaa
     if ika >= 18:
         oma_rasvaprosentti = aikuisen_rasvaprosentti(oma_bmi, ika, sukupuoli)
-
     # Muussa tapauksessa käytetään lapsen kaavaa
     else:
         oma_rasvaprosentti = lapsen_rasvaprosentti(oma_bmi, ika, sukupuoli)
 
-    print('Painoindeksisi on', oma_bmi,
-          'ja kehon rasvaprosentti on', oma_rasvaprosentti)
+    print(f"Painoindeksisi on {oma_bmi} "
+        + f"ja kehon rasvaprosentti on {oma_rasvaprosentti}.")
 
     print("Haluatko laskea myös USA:n puolustusvoimien kehon rasvaprosentin?")
     print("Tähän tarvitaan lisätietoja. (vyötärön-, kaulan- ja naisilla myös lantion-ympärys)")
     lasketaanko_usa = input("Syötä k jos haluat. Muussa tapauksessa enter: ").upper()
     if lasketaanko_usa == "K":
-        vyotaron_ymparys = float(input("Mikä on vyötärösi ympärys (cm): "))
-        kaulan_ymparys = float(input("Mikä on kaulasi ympärys (cm): "))
+        vyotaron_ymparys_teksti = input("Mikä on vyötärösi ympärys (cm): ")
+        try:
+            vyotaron_ymparys_teksti = vyotaron_ymparys_teksti.replace(',', '.')
+            vyotaron_ymparys = float(vyotaron_ymparys_teksti)
+        except Exception:
+            print("Virheellinen syöte! Syötä vain numeroita/desimaalimerkki.")
 
-        if sukupuoli == 0: # Nainen
-            lantion_ymparys = float(input("Mikä on lantiosi ympärys (cm): "))
+        kaulan_ymparys_teksti = input("Mikä on kaulasi ympärys (cm): ")
+        try:
+            kaulan_ymparys_teksti = kaulan_ymparys_teksti.replace(',', '.')
+            kaulan_ymparys = float(kaulan_ymparys_teksti)
+        except Exception:
+            print("Virheellinen syöte! Syötä vain numeroita/desimaalimerkki.")
+
+        if sukupuoli == 0:  # Nainen
+            lantion_ymparys_teksti = input("Mikä on lantiosi ympärys (cm): ")
+            try:
+                lantion_ymparys_teksti = lantion_ymparys_teksti.replace(',', '.')
+                lantion_ymparys = float(lantion_ymparys_teksti)
+            except Exception:
+                print("Virheellinen syöte! Syötä vain numeroita/desimaalimerkki.")
+
             oma_rasvaprosentti_usa = usa_rasvaprosentti_nainen(pituus, vyotaron_ymparys, kaulan_ymparys, lantion_ymparys)
-        elif sukupuoli == 1: # Mies
+        
+        elif sukupuoli == 1:  # Mies
             oma_rasvaprosentti_usa = usa_rasvaprosentti_mies(pituus, vyotaron_ymparys, kaulan_ymparys)
-
+        
         print("USA rasvaprosenttisi on:", oma_rasvaprosentti_usa)
+    
     else:
         print("USA rasvaprosenttia ei laskettu. Kiitos!")
