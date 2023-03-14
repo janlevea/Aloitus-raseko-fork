@@ -4,13 +4,11 @@
 # Libraries and modules
 import kuntoilija
 import questions
-
-# Ask a question and convert the answer to float
+import json # For saving athlete information
 
 
 # Enter information about an athlete
 name = input('Nimi: ')
-
 # Ask details about her/him
 question = questions.Question('Kuinka paljon painat? (kg): ')
 weight = question.ask_user_float(True)[0]
@@ -19,9 +17,14 @@ height = question.ask_user_float(True)[0]
 question = questions.Question("Kuinka vanha olet? (v): ")
 age =  question.ask_user_int(True)[0]
 
-# TODO: What if user responds integer other than 0/1? (it's not handled)
 question = questions.Question("Oletko nainen vai mies? (0/1): ") 
 gender = question.ask_user_int(True)[0]
+while True:
+    if gender != 0 or gender != 1:
+        print("Error in input, use 0/1.")
+        gender = question.ask_user_int(True)[0]
+    else:
+        break
 
 question = questions.Question("Minkä kokoinen on kaulasi ympärys? (cm): ")
 neck = question.ask_user_float(True)[0]
@@ -41,9 +44,17 @@ athlete = kuntoilija.Kuntoilija(name, height, weight, age, gender, waist, neck, 
 text_to_show = f'Terve {athlete.nimi}, painoindeksisi tänään on {athlete.bmi}.'
 print(text_to_show)
 fat_percentage = athlete.rasvaprosentti()
-usa_fat_percentage = athlete.usa_rasvaprosentti()
+usa_fat_percentage = athlete.laske_usa_rasvaprosentti()
 
 text_to_show = f"Suomalainen rasva-% on {fat_percentage} ja amerikkalainen on {usa_fat_percentage}."
 print(text_to_show)
 
-# TODO: Save user information to a file (json, tehty jo johonkin tiedostoon)
+saveinfo = input('Tallennetaanko tiedot? (k/e) ')
+if saveinfo.lower() == 'k':
+    # Save athlete information to a file, multi-line json
+    filename = athlete.nimi.lower().replace(' ', '_') + '.json'
+    with open(filename, 'w') as f:
+        json.dump(athlete.__dict__, f, indent=4)
+    print('Tiedot tallennettu tiedostoon', filename)
+else:
+    print('Tietoja ei tallennettu.')
