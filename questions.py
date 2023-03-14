@@ -12,37 +12,36 @@ class Question:
         """Initialize class"""
         self.question = question
 
-    @staticmethod
-    def ask_user_int(question, loop):
+    def ask_user_int(self, loop):
         """Asks a question and converts the answer to int
 
         Args:
             loop (bool): If True asks the question until able to convert it
 
         Returns:
-            tuple: answer as float, error message, error code, detailed error
+            tuple: answer as int, error message, error code, detailed error
         """
         if loop == True:
             while True:
-                answer_txt = input(question)
+                answer_txt = input(self.question)
 
-                # Let's try to convert input to numeric
+                # Try to convert input string to integer
                 try:
                     answer = int(answer_txt)
                     result = (answer, 'OK', 0, 'Conversion successful')
                     break
-                # If an exception occurs tell the user to check
+                # If an exception occurs tell the user to check input and try again
                 except Exception as e:
                     print('Virhe syöteessä, älä käytä yksiköitä.')
                     print(e)
                     result = (0, 'Error', 1, str(e))
         else:
-            answer_txt = input(question)
-            # Let's try to convert input to numeric
+            answer_txt = input(self.question)
+            # Try to convert input string to integer
             try:
                 answer = int(answer_txt)
                 result = (answer, 'OK', 0, 'Conversion successful')
-            # If an exception occurs tell the user to check
+            # If an exception occurs tell the user, but don't ask again
             except Exception as e:
                 print('Virhe syöteessä, älä käytä yksiköitä.')
                 print(e)
@@ -62,13 +61,14 @@ class Question:
         if loop == True:
             while True:
                 answer_txt = input(self.question)
+                # If user enters ',' instead of '.' - convert it to '.'
                 answer_txt = answer_txt.replace(',', '.')
-                # Let's try to convert input to numeric
+                # Try to convert input string to float
                 try:
                     answer = float(answer_txt)
                     result = (answer, 'OK', 0, 'Conversion successful')
                     break
-                # If an exception occurs tell the user to check
+                # If an exception occurs tell the user to check input and try again
                 except Exception as e:
                     print('Virhe syöteessä, älä käytä yksiköitä.')
                     print(e)
@@ -76,11 +76,11 @@ class Question:
         else:
             answer_txt = input(self.question)
             answer_txt = answer_txt.replace(',', '.')
-            # Let's try to convert input to numeric
+            # Try to convert input string to float
             try:
                 answer = float(answer_txt)
                 result = (answer, 'OK', 0, 'Conversion successful')
-            # If an exception occurs tell the user to check
+            # If an exception occurs tell the user, but don't ask again
             except Exception as e:
                 print('Virhe syöteessä, älä käytä yksiköitä.')
                 print(e)
@@ -88,47 +88,19 @@ class Question:
         
         return result
 
-    # def ask_user_int(self, loop):
-    #     """Asks a question and converts the answer to int
-
-    #     Args:
-    #         loop (bool): If True asks the question until able to convert it
-
-    #     Returns:
-    #         tuple: answer as float, error message, error code, detailed error
-    #     """
-    #     if loop == True:
-    #         while True:
-    #             answer_txt = input(self.question)
-
-    #             # Let's try to convert input to numeric
-    #             try:
-    #                 answer = int(answer_txt)
-    #                 result = (answer, 'OK', 0, 'Conversion successful')
-    #                 break
-    #             # If an exception occurs tell the user to check
-    #             except Exception as e:
-    #                 print('Virhe syöteessä, älä käytä yksiköitä.')
-    #                 print(e)
-    #                 result = (0, 'Error', 1, str(e))
-    #     else:
-    #         answer_txt = input(self.question)
-    #         # Let's try to convert input to numeric
-    #         try:
-    #             answer = int(answer_txt)
-    #             result = (answer, 'OK', 0, 'Conversion successful')
-    #         # If an exception occurs tell the user to check
-    #         except Exception as e:
-    #             print('Virhe syöteessä, älä käytä yksiköitä.')
-    #             print(e)
-    #             result = (0, 'Error', 1, str(e))
-    #     return result
-
     def ask_user_bool(self, loop):
+        """Asks a question and converts the answer(y/n) to a boolean True/False
+
+        Args:
+            loop (bool): If True asks the question until able to convert it
+
+        Returns:
+            tuple: answer as boolean, error message, error code, detailed error
+        """
         if loop == True:
             while True:
                 answer_txt = input(self.question)
-                # Try to convert input to boolean
+                # Try to convert input string to boolean
                 try:
                     if answer_txt.lower() == "y":
                         answer = True
@@ -141,14 +113,14 @@ class Question:
                     else:
                         print('Error in input, use y/n.')
                         result = (0, 'Error', 1, 'Wrong input')
-
+                # If an exception occurs tell the user to check input and try again
                 except Exception as e:
                     print('Error in input, use y/n.')
                     print(e)
                     result = (0, 'Error', 1, str(e))
         else:
             answer_txt = input(self.question)
-            # Try to convert input to boolean
+            # Try to convert input string to boolean
             try:
                 if answer_txt.lower() == "y":
                     answer = True
@@ -159,7 +131,7 @@ class Question:
                 else:
                     print('Error in input, use y/n.')
                     result = (0, 'Error', 1, 'Wrong input')
-            # If an exception occurs tell the user to check
+            # If an exception occurs tell the user, but don't ask again
             except Exception as e:
                 print('Error in input, use y/n.')
                 print(e)
@@ -167,12 +139,22 @@ class Question:
         return result
 
     def ask_user_bool2(self, true_value, false_value, loop):
-        # If loop argument is true use while loop until user inputs correct value
+        """Asks a question and converts the answer(true_value/false_value) to a boolean True/False
+
+        Args:
+            true_value (str): String to be converted to True
+            false_value (str): String to be converted to False
+            loop (bool): If True asks the question until able to convert it
+
+        Returns:
+            tuple: answer as boolean, error message, error code, detailed error
+        """
         prompt = f'{self.question} vastaa {true_value}/{false_value}: '
+        # If loop argument is true use while loop until user inputs correct value
         if loop == True:
             while True:
                 answer_txt = input(prompt)
-                # Try to convert input to boolean
+                # Try to convert input string to boolean
                 try:
                     if answer_txt.lower() == true_value.lower():
                         answer = True
@@ -185,13 +167,14 @@ class Question:
                     else:
                         print(f'Error in input, use {true_value}/{false_value}')
                         result = ('N/A', 'Error', 1, 'Unable to convert input to bool')
+                # If an exception occurs tell the user to check input and try again
                 except Exception as e:
                     print(f'Error in input, use {true_value}/{false_value}')
                     print(e)
                     result = ('N/A', 'Error', 1, str(e))
         else:
             answer_txt = input(prompt)
-            # Try to convert input to boolean
+            # Try to convert input string to boolean
             try:
                 if answer_txt.lower() == true_value.lower():
                     answer = True
@@ -202,7 +185,7 @@ class Question:
                 else:
                     print(f'Error in input, use {true_value}/{false_value}')
                     result = ('N/A', 'Error', 1, 'Unable to convert input to bool')
-            # If an exception occurs tell the user to check
+            # If an exception occurs tell the user, but don't ask again
             except Exception as e:
                 print(f'Error in input, use {true_value}/{false_value}')
                 print(e)
@@ -214,7 +197,7 @@ class Question:
         """Asks a question and returns it as string
 
         Returns:
-            str: result with debug info
+            tuple: answer as string, error message, error code, detailed error
         """
         answer_txt = input(self.question)
         result = (answer_txt, 'OK', 0, 'Input ok')
