@@ -105,15 +105,16 @@ def ask_user_gender(question):
     """
 
     # Accepted inputs
-    male_inputs = [
-        "1", "mies", "man", "male", "m"
-    ]
-    female_inputs = [
-        "0", "nainen", "woman", "female", "f", "n"
-    ]
+    male_inputs = (
+        "1", "mies", "poika", "man", "male", "m"
+    )
+    female_inputs = (
+        "0", "nainen", "tyttö", "woman", "female", "f", "n"
+    )
 
     while True:
         answer_txt = input(question)
+        answer_txt = answer_txt.lower()
         if answer_txt in male_inputs:
             gender = 1  # Male
             return gender

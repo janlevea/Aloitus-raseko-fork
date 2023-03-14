@@ -123,14 +123,15 @@ if __name__ == "__main__":
         print("Virheellinen syöte! Syötä vain numeroita.")
 
     # Accepted inputs
-    male_inputs = [
-        "1", "mies", "man", "male", "m"
-    ]
-    female_inputs = [
-        "0", "nainen", "woman", "female", "f", "n"
-    ]
+    male_inputs = (
+        "1", "mies", "poika", "man", "male", "m"
+    )
+    female_inputs = (
+        "0", "nainen", "tyttö", "woman", "female", "f", "n"
+    )
 
     sukupuoli_teksti = input('Sukupuoli mies, vastaa 1, nainen vastaa 0: ')
+    sukupuoli_teksti = sukupuoli_teksti.lower()
     if sukupuoli_teksti in male_inputs:
         sukupuoli = 1
     elif sukupuoli_teksti in female_inputs:
