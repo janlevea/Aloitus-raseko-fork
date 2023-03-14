@@ -122,10 +122,18 @@ if __name__ == "__main__":
     except Exception:
         print("Virheellinen syöte! Syötä vain numeroita.")
 
+    # Accepted inputs
+    male_inputs = [
+        "1", "mies", "man", "male", "m"
+    ]
+    female_inputs = [
+        "0", "nainen", "woman", "female", "f", "n"
+    ]
+
     sukupuoli_teksti = input('Sukupuoli mies, vastaa 1, nainen vastaa 0: ')
-    if sukupuoli_teksti == "mies" or "man" or "male" or "1":
+    if sukupuoli_teksti in male_inputs:
         sukupuoli = 1
-    elif sukupuoli_teksti == "nainen" or "woman" or "female" or "0":
+    elif sukupuoli_teksti in female_inputs:
         sukupuoli = 0
     else:
         print("Sukupuolta ei tunnistettu.")
