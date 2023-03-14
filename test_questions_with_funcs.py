@@ -1,6 +1,8 @@
 # questions.py - tests
 import questions_with_funcs as questions
 
+# Tests without raised exceptions:
+
 # Test if conversion to integer works as expected
 def test_ask_user_int(monkeypatch):
     user_input = '120'
@@ -55,4 +57,4 @@ def test_ask_user_string(monkeypatch):
     assert question == "Jani"
 
 
-# TODO: Testejä joissa nostetaan virheitä
+# TODO: Testejä joissa nostetaan virheitä (onko mahdollista koska While: True looppi?)
