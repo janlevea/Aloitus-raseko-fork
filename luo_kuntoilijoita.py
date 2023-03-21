@@ -49,6 +49,7 @@ def ask_user(question, float_or_int=0):
 
 # Enter information about an athlete
 nimi = input('Anna nimi: ')
+date_of_weighing = input('Punnituspäivä (vvvv-kk-pp): ')
 
 # Ask length
 answer = ask_user('Anna pituus (cm): ', 0)
@@ -79,12 +80,12 @@ answer = ask_user('Anna lantion ympärysmitta (cm): ', 0)
 lantion_ymparys = answer[0]
 
 print(nimi, pituus, paino, ika, 
-    sukupuoli, vyotaron_ymparys, 
+    sukupuoli, date_of_weighing, vyotaron_ymparys, 
     kaulan_ymparys, lantion_ymparys)
 
 athlete = kuntoilija.Kuntoilija(
     nimi, pituus, paino, ika, 
-    sukupuoli, vyotaron_ymparys, 
+    sukupuoli, date_of_weighing, vyotaron_ymparys, 
     kaulan_ymparys, lantion_ymparys)
 
 athlete.laske_usa_rasvaprosentti()
@@ -93,14 +94,36 @@ print(f"{athlete.nimi} painoindeksisi on {athlete.bmi}.")
 if athlete.usa_rasvaprosentti > 0:
     print(f"USA rasvaprosenttisi = {athlete.usa_rasvaprosentti} %.")
 
+print('nimi', athlete.nimi, 'paino', athlete.paino)
+
 saveinfo = input('Tallennetaanko tiedot? (k/e) ')
 if saveinfo.lower() == 'k':
     # Save athlete information to a file, multi-line json
     filename = athlete.nimi.lower().replace(' ', '_') + '.json'
     with open(filename, 'w') as f:
-        json.dump(athlete.__dict__, f, indent=4)
+        json.dump(athlete.__dict__, f, indent=4)  # dump whole object as dict
     print('Tiedot tallennettu tiedostoon', filename)
 else:
     print('Tietoja ei tallennettu.')
 
 print('Viimeisen kysymyksen virheilmoitus:', answer[1], 'koodi', answer[2], 'viesti(eng)', answer[3])
+
+# Empty list for all athlete data
+athlete_data = []
+# A dictionary for single weighing of an athlete
+athlete_data_row = {
+    'nimi': athlete.nimi,
+    'pituus': athlete.pituus,
+    'paino': athlete.paino,
+    'ika': athlete.ika,
+    'sukupuoli': athlete.sukupuoli,
+    'date_of_weighing': athlete.punnitus_paiva,
+    'vyotaron_ymparys': athlete.vyotaron_ymparys,
+    'kaulan_ymparys': athlete.kaulan_ymparys,
+    'lantion_ymparys': athlete.lantion_ymparys,
+    'bmi': athlete.bmi,
+    'usa_rasvaprosentti': athlete.usa_rasvaprosentti
+}
+
+# Add a new data row to athlete_data list
+athlete_data.append(athlete_data_row)
