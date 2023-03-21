@@ -11,7 +11,7 @@ class Kuntoilija:
 
     # Olionmuodostin eli konstruktori, self -> tuleva olio
     # Jos vyötärön, kaulan tai lantion ympärysmittoja ei anneta, niin ne asetetaan oletusarvoiksi 0.0
-    def __init__(self, nimi, pituus, paino, ika, sukupuoli, vyotaron_ymparys=0.0, kaulan_ymparys=0.0, lantion_ymparys=0.0):
+    def __init__(self, nimi, pituus, paino, ika, sukupuoli, paiva, vyotaron_ymparys=0.0, kaulan_ymparys=0.0, lantion_ymparys=0.0):
 
         # Määritellään tulevan olion ominaisuudet (property) eli luokan kentät (field)
         self.nimi = nimi
@@ -20,6 +20,7 @@ class Kuntoilija:
         self.ika = ika
         self.sukupuoli = sukupuoli
         self.bmi = fitness.laske_bmi(self.paino, self.pituus)
+        self.punnitus_paiva = paiva
 
         self.vyotaron_ymparys = vyotaron_ymparys
         self.kaulan_ymparys = kaulan_ymparys
