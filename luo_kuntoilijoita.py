@@ -109,7 +109,12 @@ else:
 print('Viimeisen kysymyksen virheilmoitus:', answer[1], 'koodi', answer[2], 'viesti(eng)', answer[3])
 
 # Empty list for all athlete data
-athlete_data = []
+# athlete_data = []
+
+# Read previous athlete_data from disk
+with open('athlete_data.json', 'r') as f:
+    athlete_data = json.load(f)
+
 # A dictionary for single weighing of an athlete
 athlete_data_row = {
     'nimi': athlete.nimi,

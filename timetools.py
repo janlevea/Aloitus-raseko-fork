@@ -61,6 +61,7 @@ def datediff2(d1, d2, unit):
     Returns:
         float: Difference in selected unit
     """
+    # TODO: vertaa mikan filuun, onko esim kuukaudet
     d1 = datetime.datetime.strptime(d1, '%Y-%m-%d')
     d2 = datetime.datetime.strptime(d2, '%Y-%m-%d')
     difference = abs((d2 - d1).days)  # Timedelta in days

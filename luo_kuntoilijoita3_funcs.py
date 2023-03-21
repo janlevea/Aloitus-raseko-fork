@@ -43,20 +43,26 @@ usa_fat_percentage = athlete.laske_usa_rasvaprosentti()
 text_to_show = f"Suomalainen rasva-% on {fat_percentage} ja amerikkalainen on {usa_fat_percentage}."
 print(text_to_show)
 
-saveinfo = input('Tallennetaanko tiedot? (k/e) ')
-if saveinfo.lower() == 'k':
-    # Save athlete information to a file, multi-line json
-    filename = athlete.nimi.lower().replace(' ', '_') + '.json'
-    with open(filename, 'w') as f:
-        json.dump(athlete.__dict__, f, indent=4)
-    print('Tiedot tallennettu tiedostoon', filename)
-else:
-    print('Tietoja ei tallennettu.')
+# saveinfo = input('Tallennetaanko tiedot? (k/e) ')
+# if saveinfo.lower() == 'k':
+#     # Save athlete information to a file, multi-line json
+#     filename = athlete.nimi.lower().replace(' ', '_') + '.json'
+#     with open(filename, 'w') as f:
+#         json.dump(athlete.__dict__, f, indent=4)
+#     print('Tiedot tallennettu tiedostoon', filename)
+# else:
+#     print('Tietoja ei tallennettu.')
 
 
 # Secondary way, save all athletes in one file
 # Empty list for all athlete data
-athlete_data = []
+# athlete_data = []
+
+with open('athlete_data.json', 'r') as f:
+    athlete_data = json.load(f)
+    for item in athlete_data:
+        print('Paino oli:', item['paino'])
+
 # A dictionary for single weighing of an athlete
 athlete_data_row = {
     'nimi': athlete.nimi,
